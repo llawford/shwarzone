@@ -1,0 +1,1 @@
+alert.log("Hello, world");
