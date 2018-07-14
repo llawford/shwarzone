@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+html, body {
+    min-width: 100%;
+    min-height: 100%;
+}
+
+h1 {
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  color: red; 
+  text-shadow: 5px 5px blueviolet;
+}
+body {
+  padding:0;
+  margin:0;
+}
+
+.container {
+    display: flex;
+}
+
+#menu {
+    background: #EEE;
+    padding: 20px;
+    box-sizing: border-box;
+    width: 200px;
+    text-align: center;
+    overflow-x: auto;
+    height: 600px;
+}
+
+.hidden {
+    display: none;
+}
+
+.employee {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: auto;
+    padding: 10px;
+    margin: 10;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.5);
+}
