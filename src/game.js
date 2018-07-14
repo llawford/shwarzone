@@ -7,11 +7,7 @@ import 'p5';
 
 let map = null;
 
-const upgrade = document.getElementById('upgrade');
-const hire = document.getElementById('hire');
-const fire = document.getElementById('fire');
 const menu = document.getElementById('menu');
-const skip = document.getElementById('skip');
 
 const hideMenu = () => document.body.removeChild(menu);
 const showMenu = () => document.body.appendChild(menu);
@@ -24,7 +20,7 @@ window.preload = () => {
 
 window.setup = () => {
     createCanvas(30*25, 30*20).parent(document.getElementById('game'));
-    map = new Map(upgrade, hire, fire, skip, showMenu, hideMenu);
+    map = new Map(showMenu, hideMenu);
 };
 
 window.draw = () => {
