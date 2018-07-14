@@ -1,11 +1,12 @@
 export class Shop {
-    constructor(location,employees,equipmentQuality,price){
+    constructor(location,employees,equipmentQuality,price,startingMoney){
         this.location = location;
         this.employees = employees;
         this.equipmentQuality = equipmentQuality; // 1 to 10
         this.price = price;
         this.goodExperiences = 0;
         this.badExperiences = 0;
+        this.money = startingMoney;
     }
 
     getEmployeeSkill(){
@@ -24,6 +25,11 @@ export class Shop {
 
     getRating(){
         return this.goodExperiences/(this.goodExperiences + this.badExperiences);
+    }
+
+    getMoney(){
+        //smtm7
+        return this.price;
     }
 
     setPrice(price){
@@ -45,4 +51,13 @@ export class Shop {
     addBadExperience(){
         this.badExperiences++;
     }
+
+    adjustMoney(amount){
+        this.money = this.money + amount;
+    }
+
+    getMoney(){
+        return this.money;
+    }
+
 }
