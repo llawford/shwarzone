@@ -17,7 +17,7 @@ export class Student{
 	if(budget > 12){
 		this.sprite=Student.sprites[2];
 	}
-	else if{budget > 8){
+	else if(budget > 8){
 		this.sprite=Student.sprites[1];
 	}
 	else {
