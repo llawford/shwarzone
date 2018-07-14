@@ -138,6 +138,12 @@ export class Map {
 
         this.shops.forEach(shop => shop.updateRating());
 
+        this.shops.forEach(shop => {
+            shop.employees.forEach(emp => {
+                shop.adjustMoney(-emp.salary);
+            });
+        });
+
         this.students = this.students.filter(s => s.isAlive == true);
         console.log(this.userShop().employees);
         console.log(this.userShop().equipmentQuality);
