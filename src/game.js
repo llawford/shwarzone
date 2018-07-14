@@ -1,5 +1,6 @@
 import * as p5 from 'p5';
 import Employee from './employee.js';
+import Shop from './shop.js';
 
 const setup = (sketch) => {
   sketch.setup = () => {
