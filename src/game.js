@@ -32,5 +32,7 @@ window.draw = () => {
 };
 
 window.mousePressed = () => {
-    map.relocateYourShop(mouseX,mouseY);
+    if(mouseX <= 740 && mouseX >=10 && mouseY <= 590 && mouseY >= 10){
+        map.relocateYourShop(mouseX,mouseY);
+    }
 }
