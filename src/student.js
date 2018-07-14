@@ -8,6 +8,7 @@ export class Student{
         loadImage('img/middle class kid.png'),
         loadImage('img/rich kid.png')
       ];
+      Student.tombstone = loadImage('img/finito.png');
     }
 
     constructor(location,budget){
@@ -61,7 +62,11 @@ export class Student{
     }
 
     draw() {
-        image(this.sprite, this.currentLocation.x, this.currentLocation.y);
+        image(
+            this.isAlive ? this.sprite : Student.tombstone,
+            this.currentLocation.x,
+            this.currentLocation.y
+        );
     }
 
     static generateRandomStudent(){

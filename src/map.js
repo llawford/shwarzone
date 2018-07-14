@@ -2,6 +2,7 @@ import { Shop, yourshop, LAZEEZ, othershop, shawarmaplus } from './shop';
 import { Student } from './student';
 import { Employee } from './employee';
 import { FireParticle } from './fire';
+import { GhostParticle } from './ghost';
 
 import 'p5';
 import { range, sample } from 'lodash';
@@ -24,7 +25,7 @@ export class Map {
                 1, 
                 7, 
                 {x: 200, y: 200}, 
-                100,
+                1000,
                 yourshop
             ),
             //lazeez
@@ -34,7 +35,7 @@ export class Map {
                 3, 
                 9, 
                 {x: 265, y: 288}, 
-                100,
+                1000,
                 LAZEEZ
             ),
             //shawerma plus
@@ -43,7 +44,7 @@ export class Map {
                 8, 
                 10, 
                 {x: 500, y: 68}, 
-                80,
+                800,
                 shawarmaplus
             ),
             //Royale
@@ -53,12 +54,13 @@ export class Map {
                 9, 
                 12, 
                 {x: 671, y: 235}, 
-                120,
+                1200,
                 othershop
             ),
 
         ];
         this.students = [];
+        this.deadStudents = [];
         for (var i = 0; i < 50;i++){
             this.students.push(Student.generateRandomStudent());
         }
@@ -112,18 +114,18 @@ export class Map {
 
     setUserShopPrice() {
         this.userShop().setPrice(parseFloat(this.price.value));
-        this.tick();
+        //this.tick();
     }
 
     hire() {
         this.userShop().addEmployee(Math.random());
-        this.tick();
+        //this.tick();
     }
 
     upgrade() {
         this.userShop().money -= this.userShop().getEquipmentUpgradePrice();
         this.userShop().setEquipmentQuality(Math.min(10, this.userShop().equipmentQuality + 1));
-        this.tick();
+        //this.tick();
     }
 
     tick() {
@@ -155,10 +157,10 @@ export class Map {
                     randomWeight -= potentialShops[shopIndex].getRating();
                 } while (randomWeight > 1e-5);
                 const selectedShop = potentialShops[shopIndex];
-                
+
                 //move sprite to shop
                 s.goToShop(selectedShop);
-                if(selectedShop.ordersServedToday < (selectedShop.employees.length * 10)){
+                if(selectedShop.ordersServedToday < (selectedShop.employees.length * 20)){
                     
 
                     //receive a shawarma - updates the shops
@@ -197,7 +199,11 @@ export class Map {
         this.shops = this.shops.filter(shop => shop.getMoney() >= 0);
         
 
-        this.students = this.students.filter(s => s.isAlive == true);
+        this.deadStudents.push(...this.students.filter(s => !s.isAlive));
+        this.students.filter(s => !s.isAlive).forEach(s => {
+            this.particles.push(new GhostParticle(s.location.x, s.location.y));
+        });
+        this.students = this.students.filter(s => s.isAlive);
         // TODO
 
         this.updateButtons();
@@ -220,6 +226,7 @@ export class Map {
                 student.tick();
                 student.draw();
             });
+            this.deadStudents.forEach(student => student.draw());
 
             this.shops.forEach(shop => shop.draw());
 
