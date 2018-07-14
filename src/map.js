@@ -14,7 +14,7 @@ export class Map {
         Map.background = loadImage('img/map.png');
     }
 
-    constructor(upgradeBtn, hireBtn, fireBtn, skipBtn, showMenu, hideMenu) {
+    constructor(showMenu, hideMenu) {
         this.shops = [
             //Your Shop
             new Shop(
@@ -61,17 +61,21 @@ export class Map {
             this.students.push(Student.generateRandomStudent());
         }
 
-        this.upgradeBtn = upgradeBtn;
-        this.hireBtn = hireBtn;
-        this.fireBtn = fireBtn;
+        this.upgradeBtn = document.getElementById('upgrade');
+        this.hireBtn = document.getElementById('hire');
+        this.fireBtn = document.getElementById('fire');
+        this.skipBtn = document.getElementById('skip');
+        this.employees = document.getElementById('employees');
+
         this.showMenu = showMenu;
         this.hideMenu = hideMenu;
-        this.skipBtn = skipBtn;
 
-        upgradeBtn.addEventListener('click', () => this.upgrade());
-        hireBtn.addEventListener('click', () => this.hire());
-        fireBtn.addEventListener('click', () => this.fire());
-        skipBtn.addEventListener('click', () => this.tick());
+        this.upgradeBtn.addEventListener('click', () => this.upgrade());
+        this.hireBtn.addEventListener('click', () => this.hire());
+        this.fireBtn.addEventListener('click', () => this.fire());
+        this.skipBtn.addEventListener('click', () => this.tick());
+
+        this.updateButtons();
     }
 
     userShop() {
@@ -81,6 +85,12 @@ export class Map {
     updateButtons() {
         const price = this.userShop().getEquipmentUpgradePrice();
         this.upgradeBtn.innerText = `Upgrade equipment: \$${price}`
+
+        while (this.employees.firstChild) {
+            this.employees.removeChild(this.employees.firstChild);
+        }
+
+        this.userShop().employees.forEach(employee => this.employees.appendChild(employee.makeElement().element));
     }
 
     hire() {
