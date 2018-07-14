@@ -67,14 +67,16 @@ export class Map {
         this.fireBtn = document.getElementById('fire');
         this.skipBtn = document.getElementById('skip');
         this.employees = document.getElementById('employees');
+        this.price = document.getElementById('price');
+        this.setPrice = document.getElementById('setprice');
 
         this.showMenu = showMenu;
         this.hideMenu = hideMenu;
 
         this.upgradeBtn.addEventListener('click', () => this.upgrade());
         this.hireBtn.addEventListener('click', () => this.hire());
-        this.fireBtn.addEventListener('click', () => this.fire());
         this.skipBtn.addEventListener('click', () => this.tick());
+        this.setPrice.addEventListener('click', () => this.setUserShopPrice());
 
         this.updateButtons();
     }
@@ -84,6 +86,8 @@ export class Map {
     }
 
     updateButtons() {
+        this.price.value = this.userShop().getPrice();
+
         const price = this.userShop().getEquipmentUpgradePrice();
         this.upgradeBtn.innerText = `Upgrade equipment: \$${price}`
 
@@ -104,6 +108,11 @@ export class Map {
         });
     }
 
+    setUserShopPrice() {
+        this.userShop().setPrice(parseFloat(this.price.value));
+        this.tick();
+    }
+
     hire() {
         this.userShop().addEmployee(Math.random());
         this.tick();
@@ -116,6 +125,10 @@ export class Map {
     }
 
     tick() {
+        this.shops.forEach(s => {
+            s.ordersServedToday = 0;
+        });
+
         this.hideMenu();
         
         //list of shops
@@ -141,10 +154,16 @@ export class Map {
                 } while (randomWeight > 1e-5);
                 const selectedShop = potentialShops[shopIndex];
 
-                s.goToShop(selectedShop);
+                if(selectedShop.ordersServedToday < (selectedShop.employees.count * 10)){
+                    //move sprite to shop
+                    s.goToShop(selectedShop);
 
-                //receive a shawarma - updates the shops
-                selectedShop.serveShawarma();
+                    //receive a shawarma - updates the shops
+                    selectedShop.serveShawarma();
+                    selectedShop.ordersServedToday++;
+                } else {
+                    selectedShop.addBadExperience();
+                }
             } else {
                 //die if can't eat
                 s.die();
@@ -169,8 +188,6 @@ export class Map {
         
 
         this.students = this.students.filter(s => s.isAlive == true);
-        console.log(this.userShop().employees);
-        console.log(this.userShop().equipmentQuality);
         // TODO
 
         this.updateButtons();
