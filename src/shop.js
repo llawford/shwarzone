@@ -1,11 +1,23 @@
-export default class Shop {
-    constructor(location,employees,equipmentQuality,price){
-        this.location = location;
+import 'p5';
+
+export class Shop {
+    static sprites = [];
+
+    static preload() {
+      Shop.sprites = [
+        loadImage('img/tile.png')
+      ];
+    }
+
+    constructor( employees,equipmentQuality,price, location, startingMoney){
+        this.sprite = Shop.sprites[0];
         this.employees = employees;
         this.equipmentQuality = equipmentQuality; // 1 to 10
         this.price = price;
         this.goodExperiences = 0;
         this.badExperiences = 0;
+        this.money = startingMoney;
+        this.location = location;
     }
 
     // get average skill of all employees
@@ -26,6 +38,11 @@ export default class Shop {
         return this.goodExperiences/(this.goodExperiences + this.badExperiences);
     }
 
+    getMoney(){
+        //smtm7
+        return this.price;
+    }
+
     setPrice(price){
         this.price = price;
     }
@@ -44,5 +61,17 @@ export default class Shop {
 
     addBadExperience(){
         this.badExperiences++;
+    }
+
+    adjustMoney(amount){
+        this.money = this.money + amount;
+    }
+
+    getMoney(){
+        return this.money;
+    }
+
+    draw() {
+        image(this.sprite, 0, 0);
     }
 }
