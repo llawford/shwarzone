@@ -4,9 +4,14 @@ export class Student{
     constructor(location,budget){
         this.location = location; // x and y integers
         this.budget = budget; //max budget per day, should be 5-15
+        this.isAlive = true;
     }
 
     decayDistance = 100;
+
+    die(){
+        this.isAlive = false;
+    }
 
     updateLocation(newLocation){
         this.location = newLocation;
