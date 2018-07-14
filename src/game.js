@@ -11,8 +11,8 @@ let map = null;
 const menu = document.getElementById('menu');
 const replay = document.getElementById('replay');
 
-const hideMenu = () => document.body.removeChild(menu);
-const showMenu = () => document.body.appendChild(menu);
+const hideMenu = () => menu.classList.add('hidden');
+const showMenu = () => menu.classList.remove('hidden');
 
 replay.addEventListener('click', () => {
     map = new Map(showMenu, hideMenu);
