@@ -56,6 +56,11 @@ export class Shop {
         this.employees.push(employee);
     }
 
+    removeEmployee() {
+        const employeeIndex = Math.floor(Math.random() * this.employees.length);
+        this.employees.splice(employeeIndex, 1);
+    }
+
     addGoodExperience(){
         this.goodExperiences++;
     }

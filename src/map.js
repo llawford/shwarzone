@@ -3,18 +3,41 @@ import { Shop } from './shop';
 import 'p5';
 
 export class Map {
-  CELL_SIZE = 30;
+    CELL_SIZE = 30;
 
-  constructor() {
-    this.shops = [new Shop([], 0.5, 10, {x: 5, y: 5}, 100)];
-  }
+    constructor() {
+        this.shops = [new Shop([], 0.5, 10, {x: 5, y: 5}, 100)];
+    }
 
-  draw() {
-    this.shops.forEach(shop => {
-      push();
-      translate(shop.location.x * 30, shop.location.y * 30);
-      shop.draw();
-      pop();
-    });
-  }
+    userShop() {
+        return shops[0];
+    }
+
+    hire() {
+        userShop().addEmployee(Math.random());
+        tick();
+    }
+
+    fire() {
+        userShop().removeEmployee();
+        tick();
+    }
+
+    upgrade() {
+        userShop().setEquipmentQuality(Math.min(10, userShop().equipmentQuality + 1));
+        tick();
+    }
+
+    tick() {
+        // TODO
+    }
+
+    draw() {
+        this.shops.forEach(shop => {
+            push();
+            translate(shop.location.x * 30, shop.location.y * 30);
+            shop.draw();
+            pop();
+        });
+    }
 }

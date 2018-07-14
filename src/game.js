@@ -10,7 +10,7 @@ window.preload = () => {
 }
 
 window.setup = () => {
-    createCanvas(800, 600).parent(document.getElementById('game'));
+    createCanvas(30*25, 30*20).parent(document.getElementById('game'));
     map = new Map();
 };
 
