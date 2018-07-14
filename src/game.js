@@ -1,17 +1,20 @@
-import * as p5 from 'p5';
+import { Map } from './map';
+import { Shop } from './shop';
 
-const setup = (sketch) => {
-  sketch.setup = () => {
-    sketch
-      .createCanvas(800, 600)
-      .parent(document.getElementById('game'));
+import 'p5';
 
-    sketch.background(40);
-  };
+let map = null;
+window.preload = () => {
+    Shop.preload();
+}
 
-  sketch.draw = () => {
-    // TODO
-  };
+window.setup = () => {
+    createCanvas(800, 600).parent(document.getElementById('game'));
+    map = new Map();
 };
 
-new p5(setup);
+window.draw = () => {
+    background(40);
+    console.log(map);
+    map.draw();
+};

@@ -1,10 +1,23 @@
+import 'p5';
+
 export class Shop {
-    constructor(employees,equipmentQuality,price){
+    static sprites = [];
+
+    static preload() {
+      Shop.sprites = [
+        loadImage('img/tile.png')
+      ];
+      console.log(Shop.sprites)
+    }
+
+    constructor( employees,equipmentQuality,price, location){
+        this.sprite = Shop.sprites[0];
         this.employees = employees;
         this.equipmentQuality = equipmentQuality;
         this.price = price;
         this.goodExperiences = 0;
         this.badExperiences = 0;
+        this.location = location;
     }
 
     getEmployeeSkill(){
@@ -39,5 +52,9 @@ export class Shop {
 
     addBadExperience(){
         this.badExperiences++;
+    }
+
+    draw() {
+        image(this.sprite, 0, 0);
     }
 }
