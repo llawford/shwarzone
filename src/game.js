@@ -1,1 +1,1 @@
-alert.log("Hello, world");
+alert("Hello, world");
