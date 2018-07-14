@@ -116,6 +116,10 @@ export class Map {
     }
 
     tick() {
+        this.shops.forEach(s => {
+            s.ordersServedToday = 0;
+        });
+
         this.hideMenu();
         
         //list of shops
@@ -141,10 +145,16 @@ export class Map {
                 } while (randomWeight > 1e-5);
                 const selectedShop = potentialShops[shopIndex];
 
-                s.goToShop(selectedShop);
+                if(selectedShop.ordersServedToday < (selectedShop.employees.count * 10)){
+                    //move sprite to shop
+                    s.goToShop(selectedShop);
 
-                //receive a shawarma - updates the shops
-                selectedShop.serveShawarma();
+                    //receive a shawarma - updates the shops
+                    selectedShop.serveShawarma();
+                    selectedShop.ordersServedToday++;
+                } else {
+                    selectedShop.addBadExperience();
+                }
             } else {
                 //die if can't eat
                 s.die();
@@ -169,8 +179,6 @@ export class Map {
         
 
         this.students = this.students.filter(s => s.isAlive == true);
-        console.log(this.userShop().employees);
-        console.log(this.userShop().equipmentQuality);
         // TODO
 
         this.updateButtons();
