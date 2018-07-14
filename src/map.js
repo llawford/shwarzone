@@ -15,7 +15,10 @@ export class Map {
 
     static preload() {
         Map.background = loadImage('img/map.png');
+        Map.endScreen = loadImage('img/gameover.png');
     }
+
+
 
     constructor(showMenu, hideMenu) {
         this.shops = [
@@ -215,10 +218,11 @@ export class Map {
 
     draw() {
         if(this.gameOver == true){
+            image(Map.endScreen,0,0);
             textAlign(CENTER,CENTER);
             textSize(50);
             fill('#ffffff');
-            text(`LOSER!`,375,300);
+            text(`loss`,375,100);
         } else {
             image(Map.background, 0, 0);
 
