@@ -1,9 +1,11 @@
 import { Shop, yourshop, LAZEEZ, othershop, shawarmaplus } from './shop';
 import { Student } from './student';
 import { Employee } from './employee';
+import { FireParticle } from './fire';
+import { GhostParticle } from './ghost';
 
 import 'p5';
-import { sample } from 'lodash';
+import { range, sample } from 'lodash';
 import { distanceBetween } from './utils';
 
 
@@ -58,6 +60,7 @@ export class Map {
 
         ];
         this.students = [];
+        this.deadStudents = [];
         for (var i = 0; i < 50;i++){
             this.students.push(Student.generateRandomStudent());
         }
@@ -79,6 +82,7 @@ export class Map {
         this.setPrice.addEventListener('click', () => this.setUserShopPrice());
 
         this.updateButtons();
+        this.particles = [];
     }
 
     userShop() {
@@ -185,10 +189,21 @@ export class Map {
         if(this.shops[0].getMoney() < 0){
             this.gameOver = true;
         }
+        this.shops.forEach(shop => {
+            if (shop.getMoney() < 0) {
+                this.particles.push(
+                    ...range(20).map(() => new FireParticle(shop.location.x, shop.location.y))
+                );
+            }
+        });
         this.shops = this.shops.filter(shop => shop.getMoney() >= 0);
         
 
-        this.students = this.students.filter(s => s.isAlive == true);
+        this.deadStudents.push(...this.students.filter(s => !s.isAlive));
+        this.students.filter(s => !s.isAlive).forEach(s => {
+            this.particles.push(new GhostParticle(s.location.x, s.location.y));
+        });
+        this.students = this.students.filter(s => s.isAlive);
         // TODO
 
         this.updateButtons();
@@ -207,12 +222,20 @@ export class Map {
         } else {
             image(Map.background, 0, 0);
 
-            this.shops.forEach(shop => shop.draw());
-    
             this.students.forEach(student => {
                 student.tick();
                 student.draw();
             });
+            this.deadStudents.forEach(student => student.draw());
+
+            this.shops.forEach(shop => shop.draw());
+
+            this.particles.forEach(particle => {
+                particle.draw();
+                particle.tick();
+            });
+
+            this.particles = this.particles.filter(particle => !particle.done());
     
             // Draw your money
             textAlign(RIGHT, TOP);

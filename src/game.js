@@ -2,6 +2,7 @@ import Employee from './employee.js';
 import { Map } from './map';
 import { Shop } from './shop';
 import { Student } from './student';
+import {GhostParticle} from './ghost';
 
 import 'p5';
 
@@ -16,6 +17,7 @@ window.preload = () => {
     Shop.preload();
     Map.preload();
     Student.preload();
+    GhostParticle.preload();
 }
 
 window.setup = () => {
