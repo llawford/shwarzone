@@ -31,6 +31,12 @@ export class Student{
     decayDistance = 100;
 
     goHome() {
+        this.location.x += Math.random() * 200 - 100;
+        this.location.y += Math.random() * 200 - 100;
+        if (this.location.x < 0) this.location.x = 30*25;
+        if (this.location.x > 30 * 25) this.location.x = 0;
+        if (this.location.y < 0) this.location.y = 30*20;
+        if (this.location.y > 30 * 20) this.location.y = 0;
         this.target = this.location;
     }
 
@@ -64,8 +70,8 @@ export class Student{
     draw() {
         image(
             this.isAlive ? this.sprite : Student.tombstone,
-            this.currentLocation.x,
-            this.currentLocation.y
+            this.currentLocation.x - this.sprite.width/2,
+            this.currentLocation.y - this.sprite.height/2
         );
     }
 
