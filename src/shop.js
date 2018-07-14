@@ -106,7 +106,7 @@ export class Shop {
 
     addBadExperience(){
         this.recentReviews.push(0);
-        while (this.recentReviews.length > 25){
+        while (this.recentReviews.length > 50){
             this.recentReviews.shift();
         }
     }

@@ -9,6 +9,7 @@ import { distanceBetween } from './utils';
 
 export class Map {
     CELL_SIZE = 30;
+    gameOver = false;
 
     static preload() {
         Map.background = loadImage('img/map.png');
@@ -146,6 +147,8 @@ export class Map {
             
         });
 
+        
+
         this.shops.forEach(shop => shop.updateRating());
 
         this.shops.forEach(shop => {
@@ -153,6 +156,12 @@ export class Map {
                 shop.adjustMoney(-emp.salary);
             });
         });
+
+        if(this.shops[0].getMoney() < 0){
+            this.gameOver = true;
+        }
+        this.shops = this.shops.filter(shop => shop.getMoney() >= 0);
+        
 
         this.students = this.students.filter(s => s.isAlive == true);
         console.log(this.userShop().employees);
@@ -167,21 +176,29 @@ export class Map {
     }
 
     draw() {
-        image(Map.background, 0, 0);
+        if(this.gameOver == true){
+            textAlign(CENTER,CENTER);
+            textSize(50);
+            fill('#ffffff');
+            text(`LOSER!`,375,300);
+        } else {
+            image(Map.background, 0, 0);
 
-        this.shops.forEach(shop => shop.draw());
-
-        this.students.forEach(student => {
-            student.tick();
-            student.draw();
-        });
-
-        // Draw your money
-        textAlign(RIGHT, TOP);
-        textSize(20);
-        fill('#000000');
-        noStroke();
-        text(`Money: ${this.userShop().money}`, 30*25, 0);
+            this.shops.forEach(shop => shop.draw());
+    
+            this.students.forEach(student => {
+                student.tick();
+                student.draw();
+            });
+    
+            // Draw your money
+            textAlign(RIGHT, TOP);
+            textSize(20);
+            fill('#000000');
+            noStroke();
+            text(`Money: ${this.userShop().money}`, 30*25, 0);
+        }
+        
     }
 
     relocateYourShop(x,y){
