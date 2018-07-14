@@ -67,14 +67,16 @@ export class Map {
         this.fireBtn = document.getElementById('fire');
         this.skipBtn = document.getElementById('skip');
         this.employees = document.getElementById('employees');
+        this.price = document.getElementById('price');
+        this.setPrice = document.getElementById('setprice');
 
         this.showMenu = showMenu;
         this.hideMenu = hideMenu;
 
         this.upgradeBtn.addEventListener('click', () => this.upgrade());
         this.hireBtn.addEventListener('click', () => this.hire());
-        this.fireBtn.addEventListener('click', () => this.fire());
         this.skipBtn.addEventListener('click', () => this.tick());
+        this.setPrice.addEventListener('click', () => this.setUserShopPrice());
 
         this.updateButtons();
     }
@@ -84,6 +86,8 @@ export class Map {
     }
 
     updateButtons() {
+        this.price.value = this.userShop().getPrice();
+
         const price = this.userShop().getEquipmentUpgradePrice();
         this.upgradeBtn.innerText = `Upgrade equipment: \$${price}`
 
@@ -102,6 +106,11 @@ export class Map {
                 });
             }
         });
+    }
+
+    setUserShopPrice() {
+        this.userShop().setPrice(parseFloat(this.price.value));
+        this.tick();
     }
 
     hire() {
