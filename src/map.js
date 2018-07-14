@@ -167,9 +167,10 @@ export class Map {
     }
 
     relocateYourShop(x,y){
+       
+        this.shops[0].adjustMoney(-distanceBetween(this.shops[0].location,{x,y}));
         this.shops[0].location = {x,y};
         
-        this.shops[0].adjustMoney(-distanceBetween(this.shops[0].location,{x,y}));
     }
 
 }
