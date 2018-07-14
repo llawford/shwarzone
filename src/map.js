@@ -154,4 +154,9 @@ export class Map {
         fill('#000000');
         text(`Money: ${this.userShop().money}`, 30*25, 0);
     }
+
+    relocateYourShop(x,y){
+        this.shops[0].location = {x,y};
+    }
+
 }

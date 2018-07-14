@@ -30,3 +30,7 @@ window.draw = () => {
     background(40);
     map.draw();
 };
+
+window.click = () => {
+    map.relocateYourShop(mouseX,mouseY);
+}
