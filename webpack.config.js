@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   mode: 'development',
   devtool: 'inline-source-map',
@@ -5,7 +7,8 @@ module.exports = {
     game: './src/game.js',
   },
   output: {
-    path: __dirname + '/dist',
+    path: __dirname + '/public/dist',
+    publicPath: 'dist/',
     filename: '[name].js'
   },
   resolve: {
@@ -16,7 +19,13 @@ module.exports = {
       {
         test: /\.js$/,
         loader: "babel-loader",
+        query: {
+          presets: ['es2015', 'stage-0']
+        }
       }
     ]
+  },
+  devServer: {
+    contentBase: path.resolve('public'),
   }
 };
