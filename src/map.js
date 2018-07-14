@@ -1,14 +1,23 @@
 import { Shop } from './shop';
+import { Student } from './student';
+import { Employee } from './employee';
 
 import 'p5';
-import { Student } from './student';
+import { sample } from 'lodash';
 
 export class Map {
     CELL_SIZE = 30;
 
+    static preload() {
+        Map.background = loadImage('img/map.png');
+    }
+
     constructor() {
-        this.shops = [new Shop([], 1, 10, {x: 5, y: 5}, 100)];
-        this.students = [new Student({x: 200, y:145},8), new Student({x: 403,y: 130})];
+        this.shops = [new Shop([new Employee(10, 10, false)], 1, 10, {x: 5, y: 5}, 100)];
+        this.students = [];
+        for (var i = 0; i < 50;i++){
+            this.students.push(Student.generateRandomStudent());
+        }
     }
 
     userShop() {
@@ -26,6 +35,7 @@ export class Map {
     }
 
     upgrade() {
+        this.userShop().money -= this.userShop().getEquipmentUpgradePrice();
         this.userShop().setEquipmentQuality(Math.min(10, this.userShop().equipmentQuality + 1));
         this.tick();
     }
@@ -47,7 +57,8 @@ export class Map {
 
             if(potentialShops.length > 0){
                 //select a random shop from potential ones
-                var selectedShop = this.potentialShops[Math.floor(Math.random() * potentialShops.length)];
+                const selectedShop = sample(potentialShops);
+                console.log(selectedShop);
 
                 //receive a shawarma - updates the shops
                 selectedShop.serveShawarma();
@@ -65,11 +76,26 @@ export class Map {
     }
 
     draw() {
+        image(Map.background, 0, 0);
+
         this.shops.forEach(shop => {
             push();
-            translate(shop.location.x * 30, shop.location.y * 30);
+            translate(shop.location.x, shop.location.y);
             shop.draw();
             pop();
         });
+
+        this.students.forEach(student => {
+            push();
+            translate(student.location.x, student.location.y);
+            student.draw();
+            pop();
+        });
+
+        // Draw your money
+        textAlign(RIGHT, TOP);
+        textSize(20);
+        fill('#000000');
+        text(`Money: ${this.userShop().money}`, 30*25, 0);
     }
 }
