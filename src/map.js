@@ -12,7 +12,7 @@ export class Map {
         Map.background = loadImage('img/map.png');
     }
 
-    constructor(upgradeBtn, hireBtn, fireBtn) {
+    constructor(upgradeBtn, hireBtn, fireBtn, showMenu, hideMenu) {
         this.shops = [new Shop([new Employee(10, 10, false)], 1, 10, {x: 5, y: 5}, 100)];
         this.students = [];
         for (var i = 0; i < 50;i++){
@@ -22,6 +22,8 @@ export class Map {
         this.upgradeBtn = upgradeBtn;
         this.hireBtn = hireBtn;
         this.fireBtn = fireBtn;
+        this.showMenu = showMenu;
+        this.hideMenu = hideMenu;
 
         upgradeBtn.addEventListener('click', () => this.upgrade());
         hireBtn.addEventListener('click', () => this.hire());
@@ -54,6 +56,7 @@ export class Map {
     }
 
     tick() {
+        this.hideMenu();
         
         //list of shops
         var potentialShops = [];
@@ -88,6 +91,7 @@ export class Map {
         // TODO
 
         this.updateButtons();
+        setTimeout(this.showMenu, 1000);
     }
 
     draw() {

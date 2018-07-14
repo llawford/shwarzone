@@ -90,7 +90,7 @@ export class Shop {
             this.addBadExperience();
         } else {
             //pick a random employee
-            var prepGuy = this.employees[Math.floor(Math.random() * items.length)];
+            var prepGuy = this.employees[Math.floor(Math.random() * this.employees.length)];
             this.adjustMoney(this.price);
             if(prepGuy.generateShawarma() && (Math.random() * 200 <= 200 - Math.pow((11 - this.equipmentQuality),2))){
                 this.addGoodExperience();
