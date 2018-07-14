@@ -76,7 +76,7 @@ export class Shop {
         //pick a random employee
         var prepGuy = this.employees[Math.floor(Math.random() * items.length)];
         this.adjustMoney(this.price);
-        if(prepGuy.generateShawarma() && (Math.random() * 10 <= this.equipmentQuality){
+        if(prepGuy.generateShawarma() && (Math.random() * 10 <= this.equipmentQuality)){
             this.addGoodExperience();
         } else {
             this.addBadExperience();
