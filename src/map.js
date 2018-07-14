@@ -1,9 +1,10 @@
 import { Shop, yourshop, LAZEEZ, othershop, shawarmaplus } from './shop';
 import { Student } from './student';
 import { Employee } from './employee';
+import { FireParticle } from './fire';
 
 import 'p5';
-import { sample } from 'lodash';
+import { range, sample } from 'lodash';
 import { distanceBetween } from './utils';
 
 
@@ -23,7 +24,7 @@ export class Map {
                 1, 
                 7, 
                 {x: 200, y: 200}, 
-                1000,
+                100,
                 yourshop
             ),
             //lazeez
@@ -33,7 +34,7 @@ export class Map {
                 3, 
                 9, 
                 {x: 265, y: 288}, 
-                1000,
+                100,
                 LAZEEZ
             ),
             //shawerma plus
@@ -42,7 +43,7 @@ export class Map {
                 8, 
                 10, 
                 {x: 500, y: 68}, 
-                800,
+                80,
                 shawarmaplus
             ),
             //Royale
@@ -52,7 +53,7 @@ export class Map {
                 9, 
                 12, 
                 {x: 671, y: 235}, 
-                1200,
+                120,
                 othershop
             ),
 
@@ -79,6 +80,7 @@ export class Map {
         this.setPrice.addEventListener('click', () => this.setUserShopPrice());
 
         this.updateButtons();
+        this.particles = [];
     }
 
     userShop() {
@@ -153,10 +155,11 @@ export class Map {
                     randomWeight -= potentialShops[shopIndex].getRating();
                 } while (randomWeight > 1e-5);
                 const selectedShop = potentialShops[shopIndex];
-
-                if(selectedShop.ordersServedToday < (selectedShop.employees.count * 10)){
-                    //move sprite to shop
-                    s.goToShop(selectedShop);
+                
+                //move sprite to shop
+                s.goToShop(selectedShop);
+                if(selectedShop.ordersServedToday < (selectedShop.employees.length * 10)){
+                    
 
                     //receive a shawarma - updates the shops
                     selectedShop.serveShawarma();
@@ -184,6 +187,13 @@ export class Map {
         if(this.shops[0].getMoney() < 0){
             this.gameOver = true;
         }
+        this.shops.forEach(shop => {
+            if (shop.getMoney() < 0) {
+                this.particles.push(
+                    ...range(20).map(() => new FireParticle(shop.location.x, shop.location.y))
+                );
+            }
+        });
         this.shops = this.shops.filter(shop => shop.getMoney() >= 0);
         
 
@@ -206,12 +216,19 @@ export class Map {
         } else {
             image(Map.background, 0, 0);
 
-            this.shops.forEach(shop => shop.draw());
-    
             this.students.forEach(student => {
                 student.tick();
                 student.draw();
             });
+
+            this.shops.forEach(shop => shop.draw());
+
+            this.particles.forEach(particle => {
+                particle.draw();
+                particle.tick();
+            });
+
+            this.particles = this.particles.filter(particle => !particle.done());
     
             // Draw your money
             textAlign(RIGHT, TOP);
