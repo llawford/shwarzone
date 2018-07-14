@@ -9,9 +9,14 @@ import 'p5';
 let map = null;
 
 const menu = document.getElementById('menu');
+const replay = document.getElementById('replay');
 
 const hideMenu = () => document.body.removeChild(menu);
 const showMenu = () => document.body.appendChild(menu);
+
+replay.addEventListener('click', () => {
+    map = new Map(showMenu, hideMenu);
+});
 
 window.preload = () => {
     Shop.preload();
