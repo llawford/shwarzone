@@ -90,16 +90,21 @@ export class Map {
             this.employees.removeChild(this.employees.firstChild);
         }
 
-        this.userShop().employees.forEach(employee => this.employees.appendChild(employee.makeElement().element));
+        this.userShop().employees.forEach((employee, i) => {
+            const element = employee.makeElement();
+            this.employees.appendChild(element.element);
+            if (element.fireBtn) {
+                element.fireBtn.addEventListener('click', () => {
+                    this.userShop().removeEmployee(i);
+
+                    this.tick();
+                });
+            }
+        });
     }
 
     hire() {
         this.userShop().addEmployee(Math.random());
-        this.tick();
-    }
-
-    fire() {
-        this.userShop().removeEmployee();
         this.tick();
     }
 

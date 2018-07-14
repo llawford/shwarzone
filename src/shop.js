@@ -92,9 +92,13 @@ export class Shop {
         this.employees.push(Employee.generateEmployee());
     }
 
-    removeEmployee() {
-        const employeeIndex = Math.floor(Math.random() * this.employees.length);
-        this.employees.splice(employeeIndex, 1);
+    removeEmployee(employeeIndex) {
+        const [fired] = this.employees.splice(employeeIndex, 1);
+        if (fired.isUnionized) {
+            const fee = Math.round(Math.random() * 900 + 100);
+            alert(`You have been charged \$${fee} by the union.`);
+            this.money -= fee;
+        }
     }
 
     addGoodExperience(){

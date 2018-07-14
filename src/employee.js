@@ -39,12 +39,16 @@ export class Employee{
         element.appendChild(salaryStat);
 
         const fireBtn = document.createElement('button');
-        fireBtn.innerText = 'Fire';
+        if (this.isUnionized) {
+            fireBtn.innerText = "Unionized; fire with fee";
+        } else {
+            fireBtn.innerText = 'Fire';
+        }
         element.appendChild(fireBtn);
 
         return {
             element,
-            fireBtn
+            fireBtn: fireBtn
         };
     }
 
