@@ -5,7 +5,11 @@ export const LAZEEZ = 1;
 export const othershop = 2;
 export const shawarmaplus = 3;
 
+
 export class Shop {
+
+    ingredientPrice = 5;
+
     static sprites = [];
 
     static preload() {
@@ -26,6 +30,8 @@ export class Shop {
         this.money = startingMoney;
         this.location = location;
         this.sprite = Shop.sprites[shopIndex];
+        this.rating = 0.5;
+        this.recentReviews = [];
     }
 
     // get average skill of all employees
@@ -43,11 +49,27 @@ export class Shop {
 
     // get average rating
     getRating(){
-        return this.goodExperiences/(this.goodExperiences + this.badExperiences);
+        return this.rating;
     }
 
-    getMoney(){
-        //smtm7
+    updateRating() {
+        if (this.recentReviews.length == 0) {
+            this.rating = 0.5;
+        } else {
+            var total = 0;
+            var i = 0;
+            this.recentReviews.forEach(element => {
+                total = total + element;
+                i++;
+            });
+            this.rating = 0.9*total/i + 0.1;
+        }
+
+
+
+    }
+
+    getPrice(){
         return this.price;
     }
 
@@ -70,17 +92,27 @@ export class Shop {
         this.employees.push(Employee.generateEmployee());
     }
 
-    removeEmployee() {
-        const employeeIndex = Math.floor(Math.random() * this.employees.length);
-        this.employees.splice(employeeIndex, 1);
+    removeEmployee(employeeIndex) {
+        const [fired] = this.employees.splice(employeeIndex, 1);
+        if (fired.isUnionized) {
+            const fee = Math.round(Math.random() * 900 + 100);
+            alert(`You have been charged \$${fee} by the union.`);
+            this.money -= fee;
+        }
     }
 
     addGoodExperience(){
-        this.goodExperiences++;
+        this.recentReviews.push(1);
+        while (this.recentReviews.length > 50){
+            this.recentReviews.shift();
+        }
     }
 
     addBadExperience(){
-        this.badExperiences++;
+        this.recentReviews.push(0);
+        while (this.recentReviews.length > 50){
+            this.recentReviews.shift();
+        }
     }
 
     adjustMoney(amount){
@@ -98,7 +130,7 @@ export class Shop {
         } else {
             //pick a random employee
             var prepGuy = this.employees[Math.floor(Math.random() * this.employees.length)];
-            this.adjustMoney(this.price);
+            this.adjustMoney(this.price-this.ingredientPrice);
             if(prepGuy.generateShawarma() && (Math.random() * 200 <= 200 - Math.pow((11 - this.equipmentQuality),2))){
                 this.addGoodExperience();
             } else {
@@ -110,6 +142,17 @@ export class Shop {
 
 
     draw() {
-        image(this.sprite, this.location.x, this.location.y);
+        image(this.sprite, this.location.x - 15, this.location.y - 15);
+        textAlign(CENTER, TOP);
+        textSize(12);
+        fill('#000000');
+        stroke('#FFFFFF');
+
+        const rating = Math.round(this.getRating() * 100);
+        text(`${rating}`, this.location.x, this.location.y + 15);
+
+        const bank = this.getMoney()
+        text(`$${bank}`, this.location.x, this.location.y - 30);
+
     }
 }

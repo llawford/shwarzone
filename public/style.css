@@ -22,5 +22,19 @@ body {
     box-sizing: border-box;
     width: 200px;
     text-align: center;
-    height: 100px;
+    overflow-x: auto;
+    max-height: 600;
+}
+
+.employee {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: auto;
+    padding: 5px;
+    margin: 10;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.5);
 }
