@@ -21,7 +21,7 @@ export class Map {
                 [Employee.generateEmployee()], 
                 1, 
                 7, 
-                {x: 5, y: 5}, 
+                {x: 200, y: 200}, 
                 1000,
                 yourshop
             ),
@@ -113,9 +113,16 @@ export class Map {
                 }
             });
 
-            if(potentialShops.length > 0){
-                //select a random shop from potential ones
-                const selectedShop = sample(potentialShops);
+            if(potentialShops.length > 0) {
+                const totalWeight = potentialShops.reduce((total, shop) => total + shop.getRating(), 0);
+                let randomWeight = Math.random() * totalWeight;
+                let shopIndex = -1;
+                do {
+                    shopIndex++;
+                    randomWeight -= potentialShops[shopIndex].getRating();
+                } while (randomWeight > 1e-5);
+                const selectedShop = potentialShops[shopIndex];
+
                 s.goToShop(selectedShop);
 
                 //receive a shawarma - updates the shops
@@ -126,6 +133,8 @@ export class Map {
             }
             
         });
+
+        this.shops.forEach(shop => shop.updateRating());
 
         this.students = this.students.filter(s => s.isAlive == true);
         console.log(this.userShop().employees);
@@ -153,6 +162,7 @@ export class Map {
         textAlign(RIGHT, TOP);
         textSize(20);
         fill('#000000');
+        noStroke();
         text(`Money: ${this.userShop().money}`, 30*25, 0);
     }
 

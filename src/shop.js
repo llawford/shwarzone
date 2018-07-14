@@ -30,6 +30,7 @@ export class Shop {
         this.money = startingMoney;
         this.location = location;
         this.sprite = Shop.sprites[shopIndex];
+        this.rating = 0.5;
     }
 
     // get average skill of all employees
@@ -47,7 +48,15 @@ export class Shop {
 
     // get average rating
     getRating(){
-        return this.goodExperiences/(this.goodExperiences + this.badExperiences);
+        return this.rating;
+    }
+
+    updateRating() {
+        if (this.goodExperiences === 0 && this.badExperiences === 0) {
+            this.rating = 0.5;
+        } else {
+            this.rating = this.goodExperiences/(this.goodExperiences + this.badExperiences);
+        }
     }
 
     getPrice(){
@@ -113,6 +122,13 @@ export class Shop {
 
 
     draw() {
-        image(this.sprite, this.location.x, this.location.y);
+        image(this.sprite, this.location.x - 15, this.location.y - 15);
+        textAlign(CENTER, TOP);
+        textSize(12);
+        fill('#000000');
+        stroke('#FFFFFF');
+
+        const rating = Math.round(this.getRating() * 100);
+        text(`${rating}`, this.location.x, this.location.y + 15);
     }
 }
