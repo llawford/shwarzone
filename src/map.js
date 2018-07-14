@@ -108,8 +108,7 @@ export class Map {
             if (element.fireBtn) {
                 element.fireBtn.addEventListener('click', () => {
                     this.userShop().removeEmployee(i);
-
-                    this.tick();
+                    this.updateButtons();
                 });
             }
         });
