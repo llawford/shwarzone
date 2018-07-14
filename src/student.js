@@ -25,6 +25,10 @@ export class Student{
             return false;
         } 
     }
+
+    static generateRandomStudent(){
+        return new Student({x: Math.floor(Math.random() * 750), y: Math.floor(Math.random() * 600)},Math.floor(Math.random() * 10) + 5);
+    }
 }
 
 // new Student({x: 4, y: 5})

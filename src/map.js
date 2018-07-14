@@ -8,7 +8,10 @@ export class Map {
 
     constructor() {
         this.shops = [new Shop([], 1, 10, {x: 5, y: 5}, 100)];
-        this.students = [new Student({x: 200, y:145},8), new Student({x: 403,y: 130})];
+        this.students = [];
+        for (var i = 0; i < 50;i++){
+            students.push(Student.generateRandomStudent());
+        }
     }
 
     userShop() {
