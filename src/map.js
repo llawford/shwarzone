@@ -6,29 +6,31 @@ export class Map {
     CELL_SIZE = 30;
 
     constructor() {
-        this.shops = [new Shop([], 0.5, 10, {x: 5, y: 5}, 100)];
+        this.shops = [new Shop([], 1, 10, {x: 5, y: 5}, 100)];
     }
 
     userShop() {
-        return shops[0];
+        return this.shops[0];
     }
 
     hire() {
-        userShop().addEmployee(Math.random());
-        tick();
+        this.userShop().addEmployee(Math.random());
+        this.tick();
     }
 
     fire() {
-        userShop().removeEmployee();
-        tick();
+        this.userShop().removeEmployee();
+        this.tick();
     }
 
     upgrade() {
-        userShop().setEquipmentQuality(Math.min(10, userShop().equipmentQuality + 1));
-        tick();
+        this.userShop().setEquipmentQuality(Math.min(10, this.userShop().equipmentQuality + 1));
+        this.tick();
     }
 
     tick() {
+        console.log(this.userShop().employees);
+        console.log(this.userShop().equipmentQuality);
         // TODO
     }
 

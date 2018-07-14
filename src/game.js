@@ -5,6 +5,11 @@ import { Shop } from './shop';
 import 'p5';
 
 let map = null;
+
+const upgrade = document.getElementById('upgrade');
+const hire = document.getElementById('hire');
+const fire = document.getElementById('fire');
+
 window.preload = () => {
     Shop.preload();
 }
@@ -18,3 +23,7 @@ window.draw = () => {
     background(40);
     map.draw();
 };
+
+upgrade.addEventListener('click', () => map.upgrade());
+hire.addEventListener('click', () => map.hire());
+fire.addEventListener('click', () => map.fire());
