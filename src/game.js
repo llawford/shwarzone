@@ -31,6 +31,6 @@ window.draw = () => {
     map.draw();
 };
 
-window.click = () => {
+window.mousePressed = () => {
     map.relocateYourShop(mouseX,mouseY);
 }
