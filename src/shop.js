@@ -56,14 +56,16 @@ export class Shop {
         if (this.recentReviews.length == 0) {
             this.rating = 0.5;
         } else {
-            total = 0;
-            i = 0;
+            var total = 0;
+            var i = 0;
             this.recentReviews.forEach(element => {
                 total = total + element;
                 i++;
             });
-            this.rating = total/i;
+            this.rating = 0.9*total/i + 0.1;
         }
+
+
 
     }
 
@@ -97,7 +99,7 @@ export class Shop {
 
     addGoodExperience(){
         this.recentReviews.push(1);
-        while (this.recentReviews.length > 25){
+        while (this.recentReviews.length > 50){
             this.recentReviews.shift();
         }
     }
@@ -144,5 +146,9 @@ export class Shop {
 
         const rating = Math.round(this.getRating() * 100);
         text(`${rating}`, this.location.x, this.location.y + 15);
+
+        const bank = this.getMoney()
+        text(`$${bank}`, this.location.x, this.location.y - 30);
+
     }
 }
