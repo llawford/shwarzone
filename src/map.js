@@ -14,7 +14,7 @@ export class Map {
         Map.background = loadImage('img/map.png');
     }
 
-    constructor(upgradeBtn, hireBtn, fireBtn, showMenu, hideMenu) {
+    constructor(upgradeBtn, hireBtn, fireBtn, skipBtn, showMenu, hideMenu) {
         this.shops = [
             //Your Shop
             new Shop(
@@ -66,10 +66,12 @@ export class Map {
         this.fireBtn = fireBtn;
         this.showMenu = showMenu;
         this.hideMenu = hideMenu;
+        this.skipBtn = skipBtn;
 
         upgradeBtn.addEventListener('click', () => this.upgrade());
         hireBtn.addEventListener('click', () => this.hire());
         fireBtn.addEventListener('click', () => this.fire());
+        skipBtn.addEventListener('click', () => this.tick());
     }
 
     userShop() {
