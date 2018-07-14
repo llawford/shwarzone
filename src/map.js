@@ -123,15 +123,19 @@ export class Map {
     hire() {
         this.userShop().addEmployee(Math.random());
         //this.tick();
+        this.updateButtons();
     }
 
     upgrade() {
         this.userShop().money -= this.userShop().getEquipmentUpgradePrice();
         this.userShop().setEquipmentQuality(Math.min(10, this.userShop().equipmentQuality + 1));
         //this.tick();
+        this.updateButtons();
     }
 
     tick() {
+        this.setUserShopPrice();
+
         this.shops.forEach(s => {
             s.ordersServedToday = 0;
         });
