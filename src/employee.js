@@ -12,6 +12,12 @@ export class Employee{
       return false // made bad shawarma
     }
   }
+
+  static generateEmployee() {
+      const quality = Math.floor(Math.random()*10)+1;
+      const salary = 10 * quality + Math.floor(Math.random()*20 - 10);
+      return new Employee(quality, salary, Math.random() > 0.8);
+  }
 }
 
 export default Employee

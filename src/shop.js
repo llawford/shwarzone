@@ -60,7 +60,7 @@ export class Shop {
     }
 
     addEmployee(employee){
-        this.employees.push(employee);
+        this.employees.push(Employee.generateEmployee());
     }
 
     removeEmployee() {
