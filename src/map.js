@@ -24,7 +24,7 @@ export class Map {
                 1, 
                 7, 
                 {x: 200, y: 200}, 
-                100,
+                1000,
                 yourshop
             ),
             //lazeez
@@ -34,7 +34,7 @@ export class Map {
                 3, 
                 9, 
                 {x: 265, y: 288}, 
-                100,
+                1000,
                 LAZEEZ
             ),
             //shawerma plus
@@ -43,7 +43,7 @@ export class Map {
                 8, 
                 10, 
                 {x: 500, y: 68}, 
-                80,
+                800,
                 shawarmaplus
             ),
             //Royale
@@ -53,12 +53,13 @@ export class Map {
                 9, 
                 12, 
                 {x: 671, y: 235}, 
-                120,
+                1200,
                 othershop
             ),
 
         ];
         this.students = [];
+        this.deadStudents = [];
         for (var i = 0; i < 50;i++){
             this.students.push(Student.generateRandomStudent());
         }
@@ -197,7 +198,8 @@ export class Map {
         this.shops = this.shops.filter(shop => shop.getMoney() >= 0);
         
 
-        this.students = this.students.filter(s => s.isAlive == true);
+        this.deadStudents.push(...this.students.filter(s => !s.isAlive));
+        this.students = this.students.filter(s => s.isAlive);
         // TODO
 
         this.updateButtons();
@@ -220,6 +222,7 @@ export class Map {
                 student.tick();
                 student.draw();
             });
+            this.deadStudents.forEach(student => student.draw());
 
             this.shops.forEach(shop => shop.draw());
 
