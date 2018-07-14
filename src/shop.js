@@ -85,15 +85,21 @@ export class Shop {
     }
 
     serveShawarma(){
-        //pick a random employee
-        var prepGuy = this.employees[Math.floor(Math.random() * items.length)];
-        this.adjustMoney(this.price);
-        if(prepGuy.generateShawarma() && (Math.random() * 10 <= this.equipmentQuality)){
-            this.addGoodExperience();
-        } else {
+        //if no one is here, bad time
+        if(this.employees.length < 1){
             this.addBadExperience();
-        }
+        } else {
+            //pick a random employee
+            var prepGuy = this.employees[Math.floor(Math.random() * items.length)];
+            this.adjustMoney(this.price);
+            if(prepGuy.generateShawarma() && (Math.random() * 200 <= 200 - Math.pow((11 - this.equipmentQuality),2))){
+                this.addGoodExperience();
+            } else {
+                this.addBadExperience();
+            }
+        }      
     }
+
 
 
     draw() {
