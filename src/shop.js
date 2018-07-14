@@ -1,7 +1,8 @@
 export class Shop {
-    constructor(employees,equipmentQuality,price){
+    constructor(location,employees,equipmentQuality,price){
+        this.location = location;
         this.employees = employees;
-        this.equipmentQuality = equipmentQuality;
+        this.equipmentQuality = equipmentQuality; // 1 to 10
         this.price = price;
         this.goodExperiences = 0;
         this.badExperiences = 0;
@@ -17,6 +18,10 @@ export class Shop {
         return (totalSkill / i);
     }
 
+    getNumEmployees(){
+        return this.employees.count;
+    }
+
     getRating(){
         return this.goodExperiences/(this.goodExperiences + this.badExperiences);
     }
@@ -26,7 +31,7 @@ export class Shop {
     }
 
     setEquipmentQuality(quality){
-        
+        this.equipmentQuality = quality;
     }
 
     addEmployee(employeeSkill){
