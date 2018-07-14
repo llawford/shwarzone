@@ -48,6 +48,13 @@ export class Shop {
         this.price = price;
     }
 
+    getEquipmentUpgradePrice() {
+        if (this.equipmentQuality == 10) {
+            return Infinity;
+        }
+        return (this.equipmentQuality + 1) * 100;
+    }
+
     setEquipmentQuality(quality){
         this.equipmentQuality = quality;
     }
