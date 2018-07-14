@@ -1,7 +1,9 @@
 import { Shop } from './shop';
+import { Student } from './student';
+import { Employee } from './employee';
 
 import 'p5';
-import { Student } from './student';
+import { sample } from 'lodash';
 
 export class Map {
     CELL_SIZE = 30;
@@ -11,10 +13,10 @@ export class Map {
     }
 
     constructor() {
-        this.shops = [new Shop([], 1, 10, {x: 5, y: 5}, 100)];
+        this.shops = [new Shop([new Employee(10, 10, false)], 1, 10, {x: 5, y: 5}, 100)];
         this.students = [];
         for (var i = 0; i < 50;i++){
-            students.push(Student.generateRandomStudent());
+            this.students.push(Student.generateRandomStudent());
         }
     }
 
@@ -55,7 +57,8 @@ export class Map {
 
             if(potentialShops.length > 0){
                 //select a random shop from potential ones
-                var selectedShop = this.potentialShops[Math.floor(Math.random() * potentialShops.length)];
+                const selectedShop = sample(potentialShops);
+                console.log(selectedShop);
 
                 //receive a shawarma - updates the shops
                 selectedShop.serveShawarma();
@@ -79,6 +82,13 @@ export class Map {
             push();
             translate(shop.location.x, shop.location.y);
             shop.draw();
+            pop();
+        });
+
+        this.students.forEach(student => {
+            push();
+            translate(student.location.x, student.location.y);
+            student.draw();
             pop();
         });
 
