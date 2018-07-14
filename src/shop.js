@@ -21,20 +21,20 @@ export class Shop {
         this.location = location;
     }
 
-    getEmployeeSkill(){
-        var i = 0;
-        var totalSkill = 0;
-        this.employees.forEach(element => {
-            i++;
-            totalSkill = totalSkill + element;
+    // get average skill of all employees
+    getEmployeeSkill(){ // tested
+        let totalSkill = 0;
+        this.employees.forEach(employee => {  
+            totalSkill = totalSkill + employee.quality;
         });
-        return (totalSkill / i);
+        return (totalSkill / this.employees.length);
     }
 
-    getNumEmployees(){
-        return this.employees.count;
+    getNumEmployees(){ // tested
+        return this.employees.length;
     }
 
+    // get average rating
     getRating(){
         return this.goodExperiences/(this.goodExperiences + this.badExperiences);
     }
@@ -52,8 +52,8 @@ export class Shop {
         this.equipmentQuality = quality;
     }
 
-    addEmployee(employeeSkill){
-        this.employees.push(employeeSkill);
+    addEmployee(employee){
+        this.employees.push(employee);
     }
 
     addGoodExperience(){
