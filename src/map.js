@@ -1,9 +1,10 @@
-import { Shop } from './shop';
+import { Shop, yourshop, LAZEEZ, othershop, shawarmaplus } from './shop';
 import { Student } from './student';
 import { Employee } from './employee';
 
 import 'p5';
 import { sample } from 'lodash';
+
 
 export class Map {
     CELL_SIZE = 30;
@@ -13,7 +14,47 @@ export class Map {
     }
 
     constructor(upgradeBtn, hireBtn, fireBtn, showMenu, hideMenu) {
-        this.shops = [new Shop([new Employee(10, 10, false)], 1, 10, {x: 5, y: 5}, 100)];
+        this.shops = [
+            //Your Shop
+            new Shop(
+                [Employee.generateEmployee()], 
+                1, 
+                7, 
+                {x: 5, y: 5}, 
+                1000,
+                yourshop
+            ),
+            //lazeez
+            new Shop(
+                [Employee.generateEmployee(), Employee.generateEmployee(),
+                Employee.generateEmployee()], 
+                3, 
+                9, 
+                {x: 265, y: 288}, 
+                1000,
+                LAZEEZ
+            ),
+            //shawerma plus
+            new Shop(
+                [Employee.generateEmployee(), Employee.generateEmployee()], 
+                8, 
+                10, 
+                {x: 500, y: 68}, 
+                800,
+                shawarmaplus
+            ),
+            //Royale
+            new Shop(
+                [Employee.generateEmployee(), Employee.generateEmployee(),
+                Employee.generateEmployee()], 
+                9, 
+                12, 
+                {x: 671, y: 235}, 
+                1200,
+                othershop
+            ),
+
+        ];
         this.students = [];
         for (var i = 0; i < 50;i++){
             this.students.push(Student.generateRandomStudent());

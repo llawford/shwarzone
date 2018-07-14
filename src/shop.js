@@ -1,17 +1,23 @@
 import Employee from './employee.js';
 import 'p5';
+export const yourshop = 0;
+export const LAZEEZ = 1;
+export const othershop = 2;
+export const shawarmaplus = 3;
 
 export class Shop {
     static sprites = [];
 
     static preload() {
       Shop.sprites = [
-        loadImage('img/tile.png')
+        loadImage('img/yourshop.png'),
+        loadImage('img/LAZEEZ.png'),
+        loadImage('img/badshop.png'),
+        loadImage('img/shawarmaplus.png')
       ];
     }
 
-    constructor( employees,equipmentQuality,price, location, startingMoney){
-        this.sprite = Shop.sprites[0];
+    constructor( employees,equipmentQuality,price, location, startingMoney,shopIndex){
         this.employees = employees;
         this.equipmentQuality = equipmentQuality; // 1 to 10
         this.price = price;
@@ -19,6 +25,7 @@ export class Shop {
         this.badExperiences = 0;
         this.money = startingMoney;
         this.location = location;
+        this.sprite = Shop.sprites[shopIndex];
     }
 
     // get average skill of all employees
