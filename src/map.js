@@ -2,6 +2,7 @@ import { Shop, yourshop, LAZEEZ, othershop, shawarmaplus } from './shop';
 import { Student } from './student';
 import { Employee } from './employee';
 import { FireParticle } from './fire';
+import { GhostParticle } from './ghost';
 
 import 'p5';
 import { range, sample } from 'lodash';
@@ -199,6 +200,9 @@ export class Map {
         
 
         this.deadStudents.push(...this.students.filter(s => !s.isAlive));
+        this.students.filter(s => !s.isAlive).forEach(s => {
+            this.particles.push(new GhostParticle(s.location.x, s.location.y));
+        });
         this.students = this.students.filter(s => s.isAlive);
         // TODO
 
