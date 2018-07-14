@@ -5,7 +5,11 @@ export const LAZEEZ = 1;
 export const othershop = 2;
 export const shawarmaplus = 3;
 
+
 export class Shop {
+
+    ingredientPrice = 5;
+
     static sprites = [];
 
     static preload() {
@@ -46,8 +50,7 @@ export class Shop {
         return this.goodExperiences/(this.goodExperiences + this.badExperiences);
     }
 
-    getMoney(){
-        //smtm7
+    getPrice(){
         return this.price;
     }
 
@@ -98,7 +101,7 @@ export class Shop {
         } else {
             //pick a random employee
             var prepGuy = this.employees[Math.floor(Math.random() * this.employees.length)];
-            this.adjustMoney(this.price);
+            this.adjustMoney(this.price-this.ingredientPrice);
             if(prepGuy.generateShawarma() && (Math.random() * 200 <= 200 - Math.pow((11 - this.equipmentQuality),2))){
                 this.addGoodExperience();
             } else {

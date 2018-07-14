@@ -4,6 +4,7 @@ import { Employee } from './employee';
 
 import 'p5';
 import { sample } from 'lodash';
+import { distanceBetween } from './utils';
 
 
 export class Map {
@@ -157,6 +158,8 @@ export class Map {
 
     relocateYourShop(x,y){
         this.shops[0].location = {x,y};
+        
+        this.shops[0].adjustMoney(-distanceBetween(this.shops[0].location,{x,y}));
     }
 
 }
