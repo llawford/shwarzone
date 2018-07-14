@@ -103,6 +103,6 @@ export class Shop {
 
 
     draw() {
-        image(this.sprite, 0, 0);
+        image(this.sprite, this.location.x, this.location.y);
     }
 }

@@ -74,7 +74,7 @@ export class Map {
             if(potentialShops.length > 0){
                 //select a random shop from potential ones
                 const selectedShop = sample(potentialShops);
-                console.log(selectedShop);
+                s.goToShop(selectedShop);
 
                 //receive a shawarma - updates the shops
                 selectedShop.serveShawarma();
@@ -91,24 +91,20 @@ export class Map {
         // TODO
 
         this.updateButtons();
-        setTimeout(this.showMenu, 1000);
+        setTimeout(() => {
+            this.students.forEach(s => s.goHome());
+        }, 1000);
+        setTimeout(this.showMenu, 2000);
     }
 
     draw() {
         image(Map.background, 0, 0);
 
-        this.shops.forEach(shop => {
-            push();
-            translate(shop.location.x, shop.location.y);
-            shop.draw();
-            pop();
-        });
+        this.shops.forEach(shop => shop.draw());
 
         this.students.forEach(student => {
-            push();
-            translate(student.location.x, student.location.y);
+            student.tick();
             student.draw();
-            pop();
         });
 
         // Draw your money
