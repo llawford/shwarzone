@@ -180,10 +180,7 @@ export class Map {
                 //die if can't eat
                 s.die();
             }
-            
         });
-
-        
 
         this.shops.forEach(shop => shop.updateRating());
 
