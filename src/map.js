@@ -6,6 +6,10 @@ import { Student } from './student';
 export class Map {
     CELL_SIZE = 30;
 
+    static preload() {
+        Map.background = loadImage('img/map.png');
+    }
+
     constructor() {
         this.shops = [new Shop([], 1, 10, {x: 5, y: 5}, 100)];
         this.students = [new Student({x: 200, y:145},8), new Student({x: 403,y: 130})];
@@ -26,6 +30,7 @@ export class Map {
     }
 
     upgrade() {
+        this.userShop().money -= this.userShop().getEquipmentUpgradePrice();
         this.userShop().setEquipmentQuality(Math.min(10, this.userShop().equipmentQuality + 1));
         this.tick();
     }
@@ -65,11 +70,19 @@ export class Map {
     }
 
     draw() {
+        image(Map.background, 0, 0);
+
         this.shops.forEach(shop => {
             push();
-            translate(shop.location.x * 30, shop.location.y * 30);
+            translate(shop.location.x, shop.location.y);
             shop.draw();
             pop();
         });
+
+        // Draw your money
+        textAlign(RIGHT, TOP);
+        textSize(20);
+        fill('#000000');
+        text(`Money: ${this.userShop().money}`, 30*25, 0);
     }
 }

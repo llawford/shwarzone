@@ -12,6 +12,7 @@ const fire = document.getElementById('fire');
 
 window.preload = () => {
     Shop.preload();
+    Map.preload();
 }
 
 window.setup = () => {
