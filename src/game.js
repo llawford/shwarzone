@@ -19,15 +19,10 @@ window.preload = () => {
 
 window.setup = () => {
     createCanvas($(window).width() / 30*30, 30*25).parent(document.getElementById('game'));
-    map = new Map();
+    map = new Map(upgrade, hire, fire);
 };
 
 window.draw = () => {
     background(40);
     map.draw();
 };
-
-upgrade.addEventListener('click', () => map.upgrade());
-hire.addEventListener('click', () => map.hire());
-fire.addEventListener('click', () => map.fire());
-

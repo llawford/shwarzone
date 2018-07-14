@@ -12,16 +12,29 @@ export class Map {
         Map.background = loadImage('img/map.png');
     }
 
-    constructor() {
+    constructor(upgradeBtn, hireBtn, fireBtn) {
         this.shops = [new Shop([new Employee(10, 10, false)], 1, 10, {x: 5, y: 5}, 100)];
         this.students = [];
         for (var i = 0; i < 50;i++){
             this.students.push(Student.generateRandomStudent());
         }
+
+        this.upgradeBtn = upgradeBtn;
+        this.hireBtn = hireBtn;
+        this.fireBtn = fireBtn;
+
+        upgradeBtn.addEventListener('click', () => this.upgrade());
+        hireBtn.addEventListener('click', () => this.hire());
+        fireBtn.addEventListener('click', () => this.fire());
     }
 
     userShop() {
         return this.shops[0];
+    }
+
+    updateButtons() {
+        const price = this.userShop().getEquipmentUpgradePrice();
+        this.upgradeBtn.innerText = `Upgrade equipment: \$${price}`
     }
 
     hire() {
@@ -73,6 +86,8 @@ export class Map {
         console.log(this.userShop().employees);
         console.log(this.userShop().equipmentQuality);
         // TODO
+
+        this.updateButtons();
     }
 
     draw() {
