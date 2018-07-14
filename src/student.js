@@ -4,7 +4,9 @@ export class Student{
 
     static preload() {
       Student.sprites = [
-        loadImage('img/student.png')
+        loadImage('img/poor kid.png'),
+	loadImage('img/middle class kid.png'),
+	loadImage('img/rich kid.png')
       ];
     }
 
@@ -12,7 +14,15 @@ export class Student{
         this.location = location; // x and y integers
         this.budget = budget; //max budget per day, should be 5-15
         this.isAlive = true;
-        this.sprite = Student.sprites[0];
+	if(budget > 12){
+		this.sprite=Student.sprites[2];
+	}
+	else if{budget > 8){
+		this.sprite=Student.sprites[1];
+	}
+	else {
+		this.sprite = Student.sprites[0];
+	}
     }
 
     decayDistance = 100;
