@@ -32,6 +32,7 @@ export class Shop {
         this.sprite = Shop.sprites[shopIndex];
         this.rating = 0.5;
         this.recentReviews = [];
+        this.ordersServedToday = 0;
     }
 
     // get average skill of all employees
@@ -62,7 +63,7 @@ export class Shop {
                 total = total + element;
                 i++;
             });
-            this.rating = 0.9*total/i + 0.1;
+            this.rating = 0.99*total/i + 0.01;
         }
 
 
@@ -131,7 +132,7 @@ export class Shop {
             //pick a random employee
             var prepGuy = this.employees[Math.floor(Math.random() * this.employees.length)];
             this.adjustMoney(this.price-this.ingredientPrice);
-            if(prepGuy.generateShawarma() && (Math.random() * 200 <= 200 - Math.pow((11 - this.equipmentQuality),2))){
+            if(prepGuy.generateShawarma() && (Math.random() * 300 <= 300 - Math.pow((11 - this.equipmentQuality),2))){
                 this.addGoodExperience();
             } else {
                 this.addBadExperience();

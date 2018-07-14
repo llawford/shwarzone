@@ -110,18 +110,18 @@ export class Map {
 
     setUserShopPrice() {
         this.userShop().setPrice(parseFloat(this.price.value));
-        this.tick();
+        //this.tick();
     }
 
     hire() {
         this.userShop().addEmployee(Math.random());
-        this.tick();
+        //this.tick();
     }
 
     upgrade() {
         this.userShop().money -= this.userShop().getEquipmentUpgradePrice();
         this.userShop().setEquipmentQuality(Math.min(10, this.userShop().equipmentQuality + 1));
-        this.tick();
+        //this.tick();
     }
 
     tick() {
@@ -153,10 +153,10 @@ export class Map {
                     randomWeight -= potentialShops[shopIndex].getRating();
                 } while (randomWeight > 1e-5);
                 const selectedShop = potentialShops[shopIndex];
-                
+
                 //move sprite to shop
                 s.goToShop(selectedShop);
-                if(selectedShop.ordersServedToday < (selectedShop.employees.length * 10)){
+                if(selectedShop.ordersServedToday < (selectedShop.employees.length * 20)){
                     
 
                     //receive a shawarma - updates the shops

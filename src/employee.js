@@ -5,8 +5,8 @@ export class Employee{
         this.isUnionized = isUnionized // salary is dollars per day
     }
     generateShawarma(){
-        const randomnumber = Math.floor(Math.random() * 10) + 1; // random number out of 100
-        if (randomnumber < this.quality) {
+        
+        if (Math.random()*20 <= this.quality + 9) {
             return true // made good shawarma
         } else {
             return false // made bad shawarma
