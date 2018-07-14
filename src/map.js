@@ -14,7 +14,7 @@ export class Map {
         this.shops = [new Shop([], 1, 10, {x: 5, y: 5}, 100)];
         this.students = [];
         for (var i = 0; i < 50;i++){
-            students.push(Student.generateRandomStudent());
+            this.students.push(Student.generateRandomStudent());
         }
     }
 
