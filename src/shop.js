@@ -7,16 +7,16 @@ export class Shop {
       Shop.sprites = [
         loadImage('img/tile.png')
       ];
-      console.log(Shop.sprites)
     }
 
-    constructor( employees,equipmentQuality,price, location){
+    constructor( employees,equipmentQuality,price, location, startingMoney){
         this.sprite = Shop.sprites[0];
         this.employees = employees;
-        this.equipmentQuality = equipmentQuality;
+        this.equipmentQuality = equipmentQuality; // 1 to 10
         this.price = price;
         this.goodExperiences = 0;
         this.badExperiences = 0;
+        this.money = startingMoney;
         this.location = location;
     }
 
@@ -30,8 +30,17 @@ export class Shop {
         return (totalSkill / i);
     }
 
+    getNumEmployees(){
+        return this.employees.count;
+    }
+
     getRating(){
         return this.goodExperiences/(this.goodExperiences + this.badExperiences);
+    }
+
+    getMoney(){
+        //smtm7
+        return this.price;
     }
 
     setPrice(price){
@@ -39,7 +48,7 @@ export class Shop {
     }
 
     setEquipmentQuality(quality){
-        
+        this.equipmentQuality = quality;
     }
 
     addEmployee(employeeSkill){
@@ -52,6 +61,14 @@ export class Shop {
 
     addBadExperience(){
         this.badExperiences++;
+    }
+
+    adjustMoney(amount){
+        this.money = this.money + amount;
+    }
+
+    getMoney(){
+        return this.money;
     }
 
     draw() {

@@ -6,7 +6,7 @@ export class Map {
   CELL_SIZE = 30;
 
   constructor() {
-    this.shops = [new Shop([], 0.5, 10, {x: 5, y: 5})];
+    this.shops = [new Shop([], 0.5, 10, {x: 5, y: 5}, 100)];
   }
 
   draw() {

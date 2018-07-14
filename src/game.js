@@ -1,3 +1,4 @@
+import Employee from './employee.js';
 import { Map } from './map';
 import { Shop } from './shop';
 
@@ -15,6 +16,5 @@ window.setup = () => {
 
 window.draw = () => {
     background(40);
-    console.log(map);
     map.draw();
 };
