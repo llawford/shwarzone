@@ -1,6 +1,7 @@
 import Employee from './employee.js';
 import { Map } from './map';
 import { Shop } from './shop';
+import { Student } from './student';
 
 import 'p5';
 
@@ -13,6 +14,7 @@ const fire = document.getElementById('fire');
 window.preload = () => {
     Shop.preload();
     Map.preload();
+    Student.preload();
 }
 
 window.setup = () => {

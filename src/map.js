@@ -82,6 +82,13 @@ export class Map {
             pop();
         });
 
+        this.students.forEach(student => {
+            push();
+            translate(student.location.x, student.location.y);
+            student.draw();
+            pop();
+        });
+
         // Draw your money
         textAlign(RIGHT, TOP);
         textSize(20);
