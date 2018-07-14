@@ -1,3 +1,5 @@
+import Employee from './employee.js';
+
 export class Shop {
     constructor(location,employees,equipmentQuality,price,startingMoney){
         this.location = location;
@@ -58,6 +60,17 @@ export class Shop {
 
     getMoney(){
         return this.money;
+    }
+
+    serveShawarma(){
+        //pick a random employee
+        var prepGuy = this.employees[Math.floor(Math.random() * items.length)];
+        this.adjustMoney(this.price);
+        if(prepGuy.generateShawarma() && (Math.random() * 10 <= this.equipmentQuality){
+            this.addGoodExperience();
+        } else {
+            this.addBadExperience();
+        }
     }
 
 }
