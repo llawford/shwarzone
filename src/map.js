@@ -153,10 +153,11 @@ export class Map {
                     randomWeight -= potentialShops[shopIndex].getRating();
                 } while (randomWeight > 1e-5);
                 const selectedShop = potentialShops[shopIndex];
-
-                if(selectedShop.ordersServedToday < (selectedShop.employees.count * 10)){
-                    //move sprite to shop
-                    s.goToShop(selectedShop);
+                
+                //move sprite to shop
+                s.goToShop(selectedShop);
+                if(selectedShop.ordersServedToday < (selectedShop.employees.length * 10)){
+                    
 
                     //receive a shawarma - updates the shops
                     selectedShop.serveShawarma();
