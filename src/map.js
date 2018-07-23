@@ -108,8 +108,7 @@ export class Map {
             if (element.fireBtn) {
                 element.fireBtn.addEventListener('click', () => {
                     this.userShop().removeEmployee(i);
-
-                    this.tick();
+                    this.updateButtons();
                 });
             }
         });
@@ -180,10 +179,7 @@ export class Map {
                 //die if can't eat
                 s.die();
             }
-            
         });
-
-        
 
         this.shops.forEach(shop => shop.updateRating());
 
