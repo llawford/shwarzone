@@ -1,5 +1,5 @@
 # Shawarma Tycoon
-A game about making your own shawarma restaurant and conquering other shawarama places in the KW area. Subtmitted to [TerribleHack XI](https://terriblehack-xi.devpost.com/). Features Comic Sans MS.
+A game about making your own shawarma restaurant and conquering other shawarama places in the KW area. Submitted to [TerribleHack XI](https://devpost.com/software/shawarma-tycoon). Features Comic Sans MS.
 
 ## Features
 - Turn based game where you click "next day" repeatedly and hope uWaterloo/Laurier students buy your shawarma
